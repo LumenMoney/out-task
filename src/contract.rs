@@ -187,5 +187,30 @@ mod tests {
         assert_eq!(0, value.balance);
     }
 
+    #[test]
+    fn withdraw() {
+        let mut deps = mock_dependencies(&coins(2, "token"));
+
+        let company = "terra1e8ryd9ezefuucd4mje33zdms9m2s90m57878v9".to_string();
+        let user= "terra1dcegyrekltswvyy0xy69ydgxn9x8x32zdtapd8".to_string();
+        let not_allowed_user= "terra1dcegyrekltswvyy0xy69ydgxn9x8x32zdtapd6".to_string();
+
+        let msg = InstantiateMsg { company, user: user.clone() };
+        let info = mock_info("creator", &coins(1000, "earth"));
+        let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // Withdrawing UST by a not allowed User results
+        // in unauthorized error
+        let info = mock_info(&not_allowed_user.clone(), &coins(2, "uusd"));
+        let msg = ExecuteMsg::Withdraw { amount: 2};
+        let res = execute(deps.as_mut(), mock_env(), info, msg);
+
+        match res {
+            Err(ContractError::Unauthorized{}) => {},
+            _ => panic!("Must return unauthorized error")
+        }
+        
+    }
+
 
 }
