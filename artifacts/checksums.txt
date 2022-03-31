@@ -1,0 +1,1 @@
+2626c67de110ee988a9fd8b181450b0d0ffaaf23bc56519f0f7fc16ae3bbcb6e  interview_task.wasm

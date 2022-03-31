@@ -1,0 +1,1 @@
+62d8498b430d2387e1d4c9aea4a164a679905fd9c931e9bc1740950c9ff9ee9c  ./target/wasm32-unknown-unknown/release/interview_task.wasm
